@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bm-db</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if users %}
+                {% for user in users %}
+                <tr data-user-id="{{ user.id }}">
+                    <td data-label="ID">{{ user.id }}</td>
+                    <td data-label="Name">
+                        <span class="view-mode">{{ user.name }}</span>
+                        <input type="text" class="custom-input edit-mode hidden" value="{{ user.name }}" name="name">
+                    </td>
+                    <td data-label="Email">
+                        <span class="view-mode">{{ user.email }}</span>
+                        <input type="email" class="custom-input edit-mode hidden" value="{{ user.email }}" name="email">
+                    </td>
+                    <td data-label="Actions">
+                        <form action="/update/{{ user.id }}" method="POST" class="edit-form hidden">
+                            <input type="hidden" name="name" class="hidden-name">
+                            <input type="hidden" name="email" class="hidden-email">
+                            <button type="submit" class="custom-button save-button"><i class="bx bx-save"></i> Save</button>
+                        </form>
+                        <div class="action-buttons">
+                            <button class="custom-button edit-button"><i class="bx bx-edit"></i> Edit</button>
+                            <a href="/delete/{{ user.id }}" class="custom-button delete-button"><i
+                                    class="bx bx-trash"></i>
+                                Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">No users found.</td>
+                </tr>
+                {% endif %}
+
+                <tr class="add-row">
+                    <td data-label="ID">---</td>
+                    <td data-label="Name">
+                        <form action="/add" method="POST" class="add-form">
+                            <input type="text" class="custom-input" name="name" placeholder="Enter name" required>
+                    </td>
+                    <td data-label="Email">
+                        <input type="email" class="custom-input" name="email" placeholder="Enter email" required>
+                    </td>
+                    <td data-label="Actions">
+                        <button type="submit" class="custom-button add-button"><i class="bx bx-plus"></i> Add </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.edit-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const row = button.closest('tr');
+                    row.querySelectorAll('.view-mode').forEach(el => el.classList.add('hidden'));
+                    row.querySelectorAll('.edit-mode').forEach(el => el.classList.remove('hidden'));
+                    row.querySelector('.action-buttons').classList.add('hidden');
+                    row.querySelector('.edit-form').classList.remove('hidden');
+                });
+            });
+
+            document.querySelectorAll('.edit-form').forEach(form => {
+                form.addEventListener('submit', () => {
+                    const row = form.closest('tr');
+                    const name = row.querySelector('input[name="name"]').value;
+                    const email = row.querySelector('input[name="email"]').value;
+                    form.querySelector('.hidden-name').value = name;
+                    form.querySelector('.hidden-email').value = email;
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+
+ 
