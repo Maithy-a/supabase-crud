@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bm-db</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="static/favicon_io/site.webmanifest">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -44,7 +44,8 @@
                         <form action="/update/{{ user.id }}" method="POST" class="edit-form hidden">
                             <input type="hidden" name="name" class="hidden-name">
                             <input type="hidden" name="email" class="hidden-email">
-                            <button type="submit" class="custom-button save-button"><i class="bx bx-save"></i> Save</button>
+                            <button type="submit" class="custom-button save-button"><i class="bx bx-save"></i>
+                                Save</button>
                         </form>
                         <div class="action-buttons">
                             <button class="custom-button edit-button"><i class="bx bx-edit"></i> Edit</button>
@@ -106,5 +107,3 @@
 </body>
 
 </html>
-
- 
