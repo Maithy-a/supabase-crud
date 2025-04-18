@@ -13,7 +13,6 @@ supabase: Client = create_client(url, key)
 
 @app.route('/')
 def index():
-    # Fetch all users
     response = supabase.table('users').select("*").execute()
     users = response.data
     return render_template('users.html', users=users)
@@ -48,4 +47,4 @@ def update_user(user_id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000, debug=True)

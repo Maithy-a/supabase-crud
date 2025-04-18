@@ -2,6 +2,7 @@
     --light-color: #F9FAFC;
     --border-color: #e0e0e0;
     --color-1: #3498db;
+    --bg-color: #fefaf1;
 }
 
 body {
@@ -10,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--bg-color);
 }
 
 .table {
