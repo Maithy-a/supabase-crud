@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bm-db</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/css/tabler.min.css" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="static/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="static/favicon_io/favicon-32x32.png">
@@ -17,41 +18,83 @@
 </head>
 
 <body>
-    <div class="container">
-        <table class="table">
+    <div class="table-responsive">
+        <table class="table table-striped table-vcenter table-bordered table-hover">
+
             <thead class="table-header">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col" class="w-4">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" class="act">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+
+            <tbody class="table-body">
                 {% if users %}
                 {% for user in users %}
                 <tr data-user-id="{{ user.id }}">
                     <td data-label="ID">{{ user.id }}</td>
                     <td data-label="Name">
                         <span class="view-mode">{{ user.name }}</span>
-                        <input type="text" class="custom-input edit-mode hidden" value="{{ user.name }}" name="name">
+                        <input type="text" class="form-control custom-input edit-mode hidden" value="{{ user.name }}"
+                            name="name">
                     </td>
+
                     <td data-label="Email">
                         <span class="view-mode">{{ user.email }}</span>
-                        <input type="email" class="custom-input edit-mode hidden" value="{{ user.email }}" name="email">
+                        <input type="email" class="form-control custom-input edit-mode hidden" value="{{ user.email }}"
+                            name="email">
                     </td>
-                    <td data-label="Actions">
+
+                    <td>
                         <form action="/update/{{ user.id }}" method="POST" class="edit-form hidden">
-                            <input type="hidden" name="name" class="hidden-name">
-                            <input type="hidden" name="email" class="hidden-email">
-                            <button type="submit" class="custom-button save-button"><i class="bx bx-save"></i>
-                                Save</button>
+
+                            <input type="hidden" name="name" class="hidden-name form-control custom-input">
+                            <input type="hidden" name="email" class="hidden-email form-control custom-input">
+
+                            <button type="submit" class="btn btn-square btn-outline-warning save-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                                    <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M14 4l0 4l-6 0l0 -4" />
+                                </svg>
+                                Save
+                            </button>
+
                         </form>
+
                         <div class="action-buttons">
-                            <button class="custom-button edit-button"><i class="bx bx-edit"></i> Edit</button>
-                            <a href="/delete/{{ user.id }}" class="custom-button delete-button"><i
-                                    class="bx bx-trash"></i>
-                                Delete</a>
+                            <button class="btn btn-square btn-outline-primary edit-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
+                                    <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
+                                </svg>
+                                Edit
+                            </button>
+                            <a href="/delete/{{ user.id }}"
+                                class="btn btn-square btn-icon btn-outline-danger  delete-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 7l16 0" />
+                                    <path d="M10 11l0 6" />
+                                    <path d="M14 11l0 6" />
+                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                </svg>
+                            </a>
                         </div>
                     </td>
                 </tr>
@@ -63,16 +106,30 @@
                 {% endif %}
 
                 <tr class="add-row">
-                    <td data-label="ID">---</td>
+                    <td data-label="ID">--</td>
                     <td data-label="Name">
                         <form action="/add" method="POST" class="add-form">
-                            <input type="text" class="custom-input" name="name" placeholder="Enter name" required>
+                            <input type="text" class="form-control custom-input" name="name" placeholder="John Doe"
+                                autocomplete="off" required>
                     </td>
                     <td data-label="Email">
-                        <input type="email" class="custom-input" name="email" placeholder="Enter email" required>
+                        <input type="email" class="form-control custom-input" name="email"
+                            placeholder="jonedoe@gmail.com" autocomplete="off" required>
                     </td>
-                    <td data-label="Actions">
-                        <button type="submit" class="custom-button add-button"><i class="bx bx-plus"></i> Add </button>
+                    <td>
+                        <button type="submit" class="btn btn-square btn-outline-primary add-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                <path d="M16 19h6" />
+                                <path d="M19 16v6" />
+                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                            </svg>
+                            Add
+                        </button>
                         </form>
                     </td>
                 </tr>
@@ -80,30 +137,9 @@
         </table>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.edit-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const row = button.closest('tr');
-                    row.querySelectorAll('.view-mode').forEach(el => el.classList.add('hidden'));
-                    row.querySelectorAll('.edit-mode').forEach(el => el.classList.remove('hidden'));
-                    row.querySelector('.action-buttons').classList.add('hidden');
-                    row.querySelector('.edit-form').classList.remove('hidden');
-                });
-            });
-
-            document.querySelectorAll('.edit-form').forEach(form => {
-                form.addEventListener('submit', () => {
-                    const row = form.closest('tr');
-                    const name = row.querySelector('input[name="name"]').value;
-                    const email = row.querySelector('input[name="email"]').value;
-                    form.querySelector('.hidden-name').value = name;
-                    form.querySelector('.hidden-email').value = email;
-                });
-            });
-        });
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.1.1/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/imask"></script>
+    <script src="/static/main.js"></script>
 </body>
 
 </html>
